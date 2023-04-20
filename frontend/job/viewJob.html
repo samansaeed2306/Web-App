@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <title>Jobs List</title>
+      <link rel="stylesheet" href="Job.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   </head>
+   <body>
+
+    <button id="viewJobs">View Jobs</button>
+    <form id="s-bar" action="/search" method="GET">
+      <label for="search">Search:</label>
+      <input type="text" id="search" name="q">
+      <button type="submit">Go</button>
+    </form>
+    
+    
+      <div id="job-container"></div>
+      
+      <!-- Load the jQuery library -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      
+      <!-- Load the JavaScript file with the code for displaying the data -->
+      <script src="viewJob.js"></script>
+   </body>
+</html>

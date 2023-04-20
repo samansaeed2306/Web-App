@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a Job</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    
+</head>
+<body>
+    <form id="addJob-form" method="post" >
+        <div class="form-group">
+            <label for="name">Title:</label>
+            <input type="text" class="form-control" id="title" name="name" required>
+          </div>
+        
+          <div class="form-group">
+            <label for="name">Description:</label>
+            <input type="text" class="form-control" id="desc" name="name" required>
+          </div>
+         
+          <div class="form-group">
+            <label for="name">Salary:</label>
+            <input type="text" class="form-control" id="salary" name="name" required>
+          </div>
+         
+          <div class="form-group">
+            <label for="name">Required Qualification:</label>
+            <input type="text" class="form-control" id="qualification" name="name" required>
+          </div>
+         
+          <button type="submit" class="btn btn-primary">Add Job</button>
+
+    </form>
+    <script src="addJob.js"></script> 
+</body>
+
+</html>
