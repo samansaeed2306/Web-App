@@ -1,6 +1,7 @@
 const { signup, login } = require("../Controllers/userController");
-const { addJob, viewJob, searchJob } = require("../Controllers/jobController");
+const { addJob, viewJob, searchJob, attachResume} = require("../Controllers/jobController");
 const jwt = require("jsonwebtoken");
+const {DecodeUser,CheckIfEmployer,CheckIfStudent}=require("../Controllers/middlewares")
 // const Article = require("../models/articleModel");
 // const {setArticles, getArticles, deleteArticles, updateArticles} = require("../controllers/ArticleController");
 
@@ -10,31 +11,33 @@ const userRoutes = require("express").Router();
 //user routes
 userRoutes.post("/signup" , signup)
 userRoutes.post("/login" , login)
-userRoutes.post("/addJob" , addJob)
-userRoutes.get("/viewJob" , viewJob)
-userRoutes.get("/searchJob",searchJob)
-//middleware to decode user token
-let DecodeUser = (req , res , next)=>{
-    let token = req.headers.authorization.split(" ")[1];
-    jwt.verify(token , process.env.SECRET_KEY , (err , decoded)=>{
-        if(!err){
-            req.decoded = decoded;
-            next();
-        }else{
-            res.status(403).json({token:token, message:"Not Authorized"})
-        }
-    }
-    )
-}
+userRoutes.post("/addJob" ,DecodeUser, CheckIfEmployer,addJob)
+userRoutes.get("/viewJob" ,DecodeUser, CheckIfStudent,viewJob)
+userRoutes.get("/searchJob",DecodeUser,CheckIfStudent,searchJob)
+userRoutes.get("/attachResume" ,DecodeUser, CheckIfStudent,attachResume)
 
-//middleware to check if user is an admin
-let CheckIfAdmin = (req , res , next)=>{
-    if(req.decoded.role == "admin"){
-        next();
-    }else{
-        res.status(403).json({"Message":"Not Authorized as administrator"})
-    }
-}
+//middleware to decode user token
+// let DecodeUser = (req , res , next)=>{
+//     let token = req.headers.authorization.split(" ")[1];
+//     jwt.verify(token , process.env.SECRET_KEY , (err , decoded)=>{
+//         if(!err){
+//             req.decoded = decoded;
+//             next();
+//         }else{
+//             res.status(403).json({token:token, message:"Not Authorized"})
+//         }
+//     }
+//     )
+// }
+
+// //middleware to check if user is an admin
+// let CheckIfAdmin = (req , res , next)=>{
+//     if(req.decoded.role == "admin"){
+//         next();
+//     }else{
+//         res.status(403).json({"Message":"Not Authorized as administrator"})
+//     }
+// }
 
 //user route to view secret page
 // userRoutes.get("/" , DecodeUser , (req , res)=>{
@@ -42,9 +45,9 @@ let CheckIfAdmin = (req , res , next)=>{
 // })
 
 //user route to view secret page admin
-userRoutes.get("/admin" , DecodeUser , CheckIfAdmin , (req , res)=>{
-    res.status(200).json({"Message":"Admin user route"})
-})  
+// userRoutes.get("/admin" , DecodeUser , CheckIfAdmin , (req , res)=>{
+//     res.status(200).json({"Message":"Admin user route"})
+// })  
  
 //user route to add new article only by an admin
 // userRoutes.post("/article" , DecodeUser , CheckIfAdmin , setArticles)
